@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            background: linear-gradient(135deg, #f97316 0%, #1e3a8a 100%);
             margin: 0;
             padding: 0;
             display: flex;
@@ -34,10 +34,10 @@
             font-size: 14px;
             color: #555;
         }
-        input[type="text"] {
+        input[type="text"], select {
             width: 100%;
             padding: 10px;
-            margin: 8px 0 20px 0;
+            margin: 8px 0 5px 0;
             display: inline-block;
             border: 1px solid #ccc;
             border-radius: 8px;
@@ -59,26 +59,60 @@
         input[type="submit"]:hover {
             background-color: #e65555;
         }
+        .invalid-feedback {
+            display: none;
+            color: red;
+            font-size: 12px;
+        }
+        .was-validated input:invalid ~ .invalid-feedback {
+            display: block;
+        }
     </style>
 </head>
 <body>
 
     <div class="form-container">
         <h1>Create User</h1>
-        <form action="{{ route('user.store') }}" method="POST">
+        <form action="{{ route('user.store') }}" method="POST" class="needs-validation" novalidate>
             @csrf
             <label for="nama">Nama:</label>
-            <input type="text" id="nama" name="nama" placeholder="Masukkan nama"><br>
+            <input type="text" id="nama" name="nama" placeholder="Masukkan nama" required>
+            <div class="invalid-feedback">Nama harus diisi.</div>
 
             <label for="npm">NPM:</label>
-            <input type="text" id="npm" name="npm" placeholder="Masukkan NPM"><br>
+            <input type="text" id="npm" name="npm" placeholder="Masukkan NPM" pattern="\d{10}" required>
+            <div class="invalid-feedback">NPM harus berupa 10 digit angka.</div>
 
-            <label for="kelas">Kelas:</label>
-            <input type="text" id="kelas" name="kelas" placeholder="Masukkan kelas"><br>
+            <label for="kelas_id">Kelas:</label>
+            <select name="kelas_id" id="kelas_id" required>
+                <option value="">Pilih Kelas</option>
+                @foreach ($kelas as $kelasItem)
+                    <option value="{{$kelasItem->id}}">{{$kelasItem->nama_kelas}}</option>
+                @endforeach
+            </select>
+            <div class="invalid-feedback">Silahkan pilih kelas yang ada.</div>
 
             <input type="submit" value="Submit">
         </form>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        (function () {
+            'use strict';
+            var forms = document.querySelectorAll('.needs-validation');
+
+            Array.prototype.slice.call(forms).forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+    </script>
 
 </body>
 </html>
