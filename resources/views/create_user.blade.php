@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #f97316 0%, #1e3a8a 100%);
+            background: linear-gradient(135deg, #1e3a8a, #9333ea);
             margin: 0;
             padding: 0;
             display: flex;
@@ -46,18 +46,18 @@
         }
         input[type="submit"] {
             width: 100%;
-            background-color: #f76c6c;
+            background-color: #1e3a8a;
             color: white;
             padding: 12px 20px;
             margin: 10px 0;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             font-size: 16px;
             font-weight: 600;
         }
         input[type="submit"]:hover {
-            background-color: #e65555;
+            background-color: #9333ea;
         }
         .invalid-feedback {
             display: none;
@@ -69,7 +69,11 @@
         }
     </style>
 </head>
-<body>
+<body> -->
+
+@extends('layouts.app')
+
+@section('content')
 
     <div class="form-container">
         <h1>Create User</h1>
@@ -95,24 +99,7 @@
             <input type="submit" value="Submit">
         </form>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script>
-        (function () {
-            'use strict';
-            var forms = document.querySelectorAll('.needs-validation');
-
-            Array.prototype.slice.call(forms).forEach(function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        })();
-    </script>
-
-</body>
-</html>
+@endsection
+<!-- </body>
+</html> -->
